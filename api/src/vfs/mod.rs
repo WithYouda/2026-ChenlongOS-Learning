@@ -33,6 +33,14 @@ pub fn mount_all() -> LinuxResult<()> {
     mount_at(&fs, "/proc", proc::new_procfs())?;
 
     mount_at(&fs, "/sys", tmp::MemoryFs::new())?;
+    let mut class_path = PathBuf::new();
+    for comp in Path::new("/sys/class").components() {
+        class_path.push(comp.as_str());
+        if fs.resolve(&class_path).is_err() {
+            fs.create_dir(&class_path, DIR_PERMISSION)?;
+        }
+    }
+    mount_at(&fs, "/sys/class/pwm", dev::pwm::new_pwm_sysfs())?;
     let mut path = PathBuf::new();
     for comp in Path::new("/sys/class/graphics/fb0/device").components() {
         path.push(comp.as_str());

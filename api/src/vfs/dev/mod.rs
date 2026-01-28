@@ -7,6 +7,7 @@ pub mod ion;
 #[cfg(feature = "dev-log")]
 mod log;
 mod devmem;
+pub mod pwm;
 mod r#loop;
 #[cfg(feature = "memtrack")]
 mod memtrack;
