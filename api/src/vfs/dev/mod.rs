@@ -6,6 +6,7 @@ mod fb;
 pub mod ion;
 #[cfg(feature = "dev-log")]
 mod log;
+mod devmem;
 mod r#loop;
 #[cfg(feature = "memtrack")]
 mod memtrack;
@@ -24,6 +25,7 @@ use spin::Once;
 pub use log::bind_dev_log;
 use rand::{RngCore, SeedableRng, rngs::SmallRng};
 use starry_core::vfs::{Device, DeviceOps, DirMaker, DirMapping, SimpleDir, SimpleFs};
+use devmem::DevMem;
 
 pub static ION_DEVICE: Once<Arc<ion::IonDevice>> = Once::new();
 
@@ -145,6 +147,7 @@ impl DeviceOps for CpuDmaLatency {
         NodeFlags::NON_CACHEABLE
     }
 }
+
 
 fn builder(fs: Arc<SimpleFs>) -> DirMaker {
     let mut root = DirMapping::new();
@@ -293,6 +296,16 @@ fn builder(fs: Arc<SimpleFs>) -> DirMaker {
             NodeType::CharacterDevice,
             DeviceId::new(10, 1024),
             Arc::new(CpuDmaLatency),
+        ),
+    );
+
+    root.add(
+        "devmem",
+        Device::new(
+            fs.clone(),
+            NodeType::CharacterDevice,
+            DeviceId::new(10, 1025),
+            Arc::new(DevMem),
         ),
     );
 
