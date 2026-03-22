@@ -7,7 +7,10 @@
 
 2、编译文件系统，制作镜像。 
 
-3、make sg2002 (要patch一下page_table_entry)
+3、make sg2002 (要执行所有的patch脚本)
+```bash
+./rootfs/patch_sstatus.sh && ./rootfs/patch_table_entry.sh  && ./rootfs/patch_uspace.sh 
+```
 
 4、把ext4_100m.img和StarryOS_sg2002.bin都拷贝到fat分区。 
 
