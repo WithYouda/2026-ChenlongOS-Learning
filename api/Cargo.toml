@@ -65,6 +65,8 @@ starry-vm.workspace = true
 sg200x-bsp = { path = "../sg200x-bsp" }
 syscalls = { git = "https://github.com/Starry-OS/syscalls.git", rev = "efac241", default-features = false }
 zerocopy = { version = "0.8.26", features = ["derive"] }
+tock-registers = "0.9"
+dw_apb_uart = "0.1.0"
 
 starry-core.workspace = true
 

@@ -43,7 +43,7 @@ impl PwmSysfsState {
         let mut chips = Vec::with_capacity(PWM_SYSFS_CHIPS as usize);
         for index in 0..PWM_SYSFS_CHIPS {
             let instance = PwmInstance::from_index(index).unwrap();
-            let pwm = unsafe { Pwm::new(instance) };
+            let pwm = Pwm::new(instance);
             chips.push(PwmChipState {
                 pwm,
                 channels: [PwmChannelState::default(); PWM_SYSFS_CHANNELS_PER_CHIP as usize],

@@ -14,6 +14,7 @@ mod memtrack;
 mod rtc;
 pub mod tty;
 pub mod tpu;
+mod cvi_camera;
 
 use alloc::{format, sync::Arc};
 use core::any::Any;
@@ -307,6 +308,16 @@ fn builder(fs: Arc<SimpleFs>) -> DirMaker {
             NodeType::CharacterDevice,
             DeviceId::new(10, 1025),
             Arc::new(DevMem),
+        ),
+    );
+
+    root.add(
+        "cvi-camera",
+        Device::new(
+            fs.clone(),
+            NodeType::CharacterDevice,
+            DeviceId::new(10, 1026),
+            Arc::new(cvi_camera::CviCamera::new()),
         ),
     );
 

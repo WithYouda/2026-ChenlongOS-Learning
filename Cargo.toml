@@ -109,7 +109,9 @@ qemu = [
 smp = ["axfeat/smp", "axplat-riscv64-visionfive2?/smp"]
 
 vf2 = ["dep:axplat-riscv64-visionfive2", "axfeat/driver-sdmmc"]
-sg2002 = ["dep:axplat-riscv64-sg2002", "axfeat/driver-ramdisk"]
+# sg2002 = ["dep:axplat-riscv64-sg2002", "axfeat/driver-ramdisk"]
+sg2002 = ["dep:axplat-riscv64-sg2002", "axfeat/driver-cvsd"]
+
 
 [dependencies]
 axdriver.workspace = true
@@ -139,10 +141,27 @@ optional = true
 
 [dependencies.axplat-riscv64-sg2002]
 version = "0.1"
-git = "https://github.com/pengzechen/axplat-riscv64-sg2002.git"
-rev = "a7f501572"
+# git = "https://github.com/pengzechen/axplat-riscv64-sg2002.git"
+# rev = "a7f501572"
+# path = "./axplat-riscv64-sg2002-peng/"
+git = "https://github.com/yfblock/axplat-riscv64-sg2002-1.git"
+rev = "2ca6b28"
 features = ["fp-simd", "irq", "rtc"]
 optional = true
+
+[patch.crates-io]
+dw_apb_uart = { path = "../yfblock/dw_apb_uart" }
+
+[patch."https://github.com/arceos-org/axdriver_crates.git"]
+axdriver_base = { git = "https://github.com/elliott10/axdriver_crates.git", rev = "4d73e06a" }
+axdriver_block = { git = "https://github.com/elliott10/axdriver_crates.git", rev = "4d73e06a" }
+axdriver_display = { git = "https://github.com/elliott10/axdriver_crates.git", rev = "4d73e06a" }
+axdriver_input = { git = "https://github.com/elliott10/axdriver_crates.git", rev = "4d73e06a" }
+axdriver_net = { git = "https://github.com/elliott10/axdriver_crates.git", rev = "4d73e06a" }
+axdriver_pci = { git = "https://github.com/elliott10/axdriver_crates.git", rev = "4d73e06a" }
+axdriver_virtio = { git = "https://github.com/elliott10/axdriver_crates.git", rev = "4d73e06a" }
+axdriver_vsock = { git = "https://github.com/elliott10/axdriver_crates.git", rev = "4d73e06a" }
+
 
 [package.metadata.vendor-filter]
 platforms = ["riscv64gc-unknown-none-elf", "loongarch64-unknown-none-softfloat"]
