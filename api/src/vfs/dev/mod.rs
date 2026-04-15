@@ -15,6 +15,7 @@ mod rtc;
 pub mod tty;
 pub mod tpu;
 mod cvi_camera;
+mod tty_serial;
 
 use alloc::{format, sync::Arc};
 use core::any::Any;
@@ -340,6 +341,31 @@ fn builder(fs: Arc<SimpleFs>) -> DirMaker {
             ),
         );
     }
+
+    // Serial TTY devices (Linux standard: major=4, minor=64+n)
+    // ttyS1 → UART1 @ 0x04150000 (physical address TBD)
+    let tty_s1 = Arc::new(tty_serial::new_tty_s1(115200));
+    root.add(
+        "ttyS1",
+        Device::new(
+            fs.clone(),
+            NodeType::CharacterDevice,
+            DeviceId::new(4, 65),
+            tty_s1,
+        ),
+    );
+
+    // ttyS2 → UART2 @ 0x04160000 (舵机串口)
+    let tty_s2 = Arc::new(tty_serial::new_tty_s2(1000000));
+    root.add(
+        "ttyS2",
+        Device::new(
+            fs.clone(),
+            NodeType::CharacterDevice,
+            DeviceId::new(4, 66),
+            tty_s2,
+        ),
+    );
 
     // Input devices
     #[cfg(feature = "input")]
