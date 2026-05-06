@@ -109,8 +109,8 @@ qemu = [
 smp = ["axfeat/smp", "axplat-riscv64-visionfive2?/smp"]
 
 vf2 = ["dep:axplat-riscv64-visionfive2", "axfeat/driver-sdmmc"]
-# sg2002 = ["dep:axplat-riscv64-sg2002", "axfeat/driver-ramdisk"]
-sg2002 = ["dep:axplat-riscv64-sg2002", "axfeat/driver-cvsd"]
+sg2002 = ["dep:axplat-riscv64-sg2002", "axfeat/driver-ramdisk"]
+# sg2002 = ["dep:axplat-riscv64-sg2002", "axfeat/driver-cvsd"]
 
 
 [dependencies]
@@ -150,7 +150,7 @@ features = ["fp-simd", "irq", "rtc"]
 optional = true
 
 [patch.crates-io]
-dw_apb_uart = { path = "../yfblock/dw_apb_uart" }
+dw_apb_uart = { path = "../dw_apb_uart" }
 
 [patch."https://github.com/arceos-org/axdriver_crates.git"]
 axdriver_base = { git = "https://github.com/elliott10/axdriver_crates.git", rev = "4d73e06a" }

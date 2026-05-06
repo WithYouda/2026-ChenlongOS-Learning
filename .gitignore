@@ -13,6 +13,22 @@
 /mnt
 *.swp
 *.swo
+/asm.txt
 
 /rootfs/tmp/mnt_rootfs
 /rootfs/bin
+
+
+/busybox/
+/busybox-*/
+/rootfs/busybox/
+/rootfs/busybox-*/
+/rootfs/*.tar
+/rootfs/*.tar.*
+/rootfs/*.zip
+/rootfs/*.gz
+
+
+/riscv64-linux-musl*/
+/riscv64-unknown-linux-musl*/
+/sg200x-bsp/
